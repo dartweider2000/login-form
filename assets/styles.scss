@@ -1,0 +1,26 @@
+
+:root {
+  --purple-light: #6172F3;
+  --purple-dark: #444CE7;
+  --purple-dark-81: rgba(68, 76, 231, 0.81);
+  --purple-dark-29: rgba(68, 76, 231, 0.29);
+  --purple-white: rgba(224, 234, 255, 1);
+  --purple-white-75: rgba(224, 234, 255, 0.75);
+
+  --purple-very-light: rgba(164, 188, 253, 1);
+
+  --left-bg: #F5F8FF;
+
+  --black: #09090B;
+  --gray: #71717A;
+
+  --input-fill-10: rgba(128, 152, 249, 0.1);
+  --call-to-action-50: rgba(128, 152, 249, 0.5);
+  --call-to-action: rgba(128, 152, 249, 1);
+
+  --input-inner-color: rgba(45, 49, 166, 0.2);
+}
+
+html, body {
+  font-family: Montserrat;
+}
