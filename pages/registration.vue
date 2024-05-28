@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import createImage from "~/assets/img/create-image.svg";
+  import createImage from "~/assets/img/registration-image.svg";
 
   definePageMeta({
     layout: false,

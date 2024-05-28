@@ -39,7 +39,7 @@
 
 <style scoped lang="scss">
   .app {
-    @apply flex min-h-dvh min-w-[100dvw];
+    @apply flex min-h-dvh min-w-[100dvw] overflow-x-hidden;
 
     & > * {
       @apply flex-1 basis-[50%];
@@ -50,17 +50,17 @@
     }
     // .app__left-content
     &__left-content {
-      @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
+      @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full p-[16px];
     }
     // .app__right
     &__right {
-      @media (max-width: 1400px) {
+      @media (max-width: 1440px) {
         @apply hidden;
       }
     }
   }
   .app-right {
-    @apply bg-[--purple-light] relative;
+    @apply bg-[--purple-light] relative overflow-hidden;
     // .app-right__body
     &__body {
       @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
@@ -111,6 +111,10 @@
       @apply absolute left-[50%] translate-x-[-50%] text-center w-full;
 
       top: calc(100% + 50px);
+
+      @media (max-height: 830px) {
+        @apply hidden;
+      }
     }
     // .app-right__caption-title
     &__caption-title {

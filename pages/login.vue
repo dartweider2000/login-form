@@ -3,6 +3,9 @@
   definePageMeta({
     layout: false,
   });
+
+  const val = ref("");
+  const pass = ref("");
 </script>
 
 <template>
@@ -15,15 +18,53 @@
       Everything you need is an internet connection.
     </template>
     <template #form>
-      <form action="" class="login-form">
-        <FormTitle>Login to your Account</FormTitle>
-        <div class="login-form__separator">with email</div>
-        <div class="login-form__body">
+      <TemplateForm>
+        <template #header>
+          <div class="form-header">
+            <FormTitle class="form-header__title"
+              >Login to your Account</FormTitle
+            >
+            <div class="form-header__separator">
+              <span>with email</span>
+            </div>
+          </div>
+        </template>
+        <template #body>
+          <UIEmailInput v-model="val" />
+          <UIPasswordInput v-model="pass" />
+        </template>
+        <template #button>
           <UIActionButton>Log in</UIActionButton>
-        </div>
-      </form>
+        </template>
+        <template #caption>
+          <TemplateFormCaption
+            description="Don’t have account?"
+            linkText="Create an account"
+            linkUrl="/registration"
+          />
+        </template>
+      </TemplateForm>
     </template>
   </NuxtLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .form-header {
+    @apply grid gap-[25px];
+    // .form-header__title
+    &__title {
+    }
+    // .form-header__separator
+    &__separator {
+      @apply text-[--input-inner-color] text-[15px] leading-[24px] font-medium relative text-center grid  items-center px-[12px];
+
+      grid-template: 1fr / 1fr clamp(140px, 40vw, 213px) 1fr;
+
+      &:before,
+      &:after {
+        content: "";
+        @apply block h-[1px] bg-[--input-inner-color];
+      }
+    }
+  }
+</style>

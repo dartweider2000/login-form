@@ -8,6 +8,6 @@
 
 <style scoped lang="scss">
   .form-title {
-    @apply font-bold text-[40px] leading-[24px] text-[--black];
+    @apply font-bold text-[40px] leading-[100%] text-[--black];
   }
 </style>

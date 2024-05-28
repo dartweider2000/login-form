@@ -10,4 +10,7 @@ export default defineNuxtConfig({
       Inter: [700],
     },
   },
+  pinia: {
+    storesDirs: ["./stores/**"],
+  },
 });
