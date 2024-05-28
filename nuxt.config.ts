@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     display: "swap",
     families: {
       Montserrat: [400, 500, 700],
+      Inter: [700],
     },
   },
 });

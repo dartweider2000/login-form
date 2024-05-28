@@ -46,10 +46,11 @@
     }
     // .app__left
     &__left {
-      @apply bg-[--left-bg];
+      @apply bg-[--left-bg] relative;
     }
     // .app__left-content
     &__left-content {
+      @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
     }
     // .app__right
     &__right {
@@ -103,7 +104,7 @@
     }
     // .app-right__center-image
     &__center-image {
-      @apply top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] grid gap-[10px];
+      @apply top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] grid gap-[10px] w-full;
     }
     // .app-right__caption
     &__caption {
