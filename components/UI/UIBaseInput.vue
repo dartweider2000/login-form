@@ -14,8 +14,15 @@
     postfixIcon: () => any;
   }>();
 
+  const inputEl = ref<HTMLInputElement | null>(null);
+
   const isFocus = ref<boolean>(false);
-  if (autofocus.value) isFocus.value = true;
+
+  onMounted(() => {
+    if (autofocus.value) {
+      inputEl.value?.focus();
+    }
+  });
 </script>
 
 <template>
@@ -29,13 +36,13 @@
       <slot name="prefixIcon" />
     </div>
     <input
+      ref="inputEl"
       v-model="value"
       class="input__el"
       :type="setup.type || 'text'"
       :placeholder="setup.placeholder"
       :autocomplete="setup.autocomplete"
       :tabindex="tabindex"
-      :autofocus="autofocus"
     />
     <div v-if="$slots.postfixIcon" class="input__postfix-icon">
       <slot name="postfixIcon" />

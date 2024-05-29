@@ -46,11 +46,11 @@
     }
     // .app__left
     &__left {
-      @apply bg-[--left-bg] relative;
+      @apply bg-[--left-bg] flex justify-center items-center;
     }
     // .app__left-content
     &__left-content {
-      @apply absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full p-[16px];
+      @apply basis-[100%] p-[16px];
     }
     // .app__right
     &__right {
