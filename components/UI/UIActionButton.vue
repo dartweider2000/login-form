@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  defineEmits<{
+    action: [];
+  }>();
+</script>
 
 <template>
-  <button class="button">
+  <button class="button" @click="$emit('action')">
     <slot />
   </button>
 </template>
@@ -15,13 +19,15 @@
       @apply bg-[--input-inner-color];
     }
 
-    &:focus {
-      @apply bg-[--purple-dark];
-    }
-
-    @media (hover: hover) {
-      &:hover {
+    &:not(:disabled) {
+      &:focus {
         @apply bg-[--purple-dark];
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          @apply bg-[--purple-dark];
+        }
       }
     }
   }

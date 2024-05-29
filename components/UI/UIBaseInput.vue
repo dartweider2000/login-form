@@ -6,6 +6,7 @@
     setup: IInputSetup;
     tabindex?: number;
     autofocus?: boolean;
+    required?: boolean;
   }>();
   const { setup, autofocus } = toRefs(props);
 
@@ -17,20 +18,25 @@
   const inputEl = ref<HTMLInputElement | null>(null);
 
   const isFocus = ref<boolean>(false);
+  const isError = ref<boolean>(false);
 
   onMounted(() => {
     if (autofocus.value) {
       inputEl.value?.focus();
     }
+
+    console.dir(inputEl.value);
   });
 </script>
 
 <template>
   <div
     class="input"
-    :class="{ 'input_is-focus': isFocus }"
+    :class="{ 'input_is-focus': isFocus, 'input_is-error': isError }"
     @focusin="isFocus = true"
     @focusout="isFocus = false"
+    @invalid="isError = true"
+    @input="isError = false"
   >
     <div v-if="$slots.prefixIcon" class="input__prefix-icon">
       <slot name="prefixIcon" />
@@ -43,6 +49,9 @@
       :placeholder="setup.placeholder"
       :autocomplete="setup.autocomplete"
       :tabindex="tabindex"
+      :pattern="setup.pattern"
+      :required="required"
+      :name="setup.name"
     />
     <div v-if="$slots.postfixIcon" class="input__postfix-icon">
       <slot name="postfixIcon" />
@@ -64,6 +73,10 @@
       @apply border-[--purple-dark];
     }
 
+    &_is-error {
+      @apply border-red-400;
+    }
+
     & .input__prefix-icon,
     .input__postfix-icon {
       @apply flex-grow-0 flex-shrink-0 basis-[30px];
@@ -75,8 +88,12 @@
     }
     // .input__el
     &__el {
-      @apply flex-1 basis-auto bg-transparent outline-none text-[18px] leading-[30px] text-[--input-inner-color]
-       min-w-0 overflow-hidden text-ellipsis whitespace-nowrap py-[17px] relative z-[1];
+      @apply flex-1 basis-auto bg-transparent outline-none text-[18px] leading-[30px]
+       min-w-0 overflow-hidden text-ellipsis whitespace-nowrap py-[17px] relative z-[1] text-[--input-inner-color];
+
+      &:-webkit-autofill::first-line {
+        @apply text-[--input-inner-color];
+      }
 
       &::placeholder {
         @apply text-[--input-inner-color];

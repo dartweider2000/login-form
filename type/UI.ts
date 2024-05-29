@@ -1,12 +1,24 @@
+import type AuthApi from "~/api/modules/auth.api";
+
 export type FormatterFunction = (v: string) => string;
 
 export interface IInputSetup {
   placeholder?: string;
   autocomplete?: string;
   type?: string;
-  pattern?: RegExp;
+  pattern?: string;
   formatter?: FormatterFunction;
   inputmode?: string;
+  name?: string;
+}
+
+export interface ILoginRequestBody {
+  username: string;
+  password: string;
+}
+
+export interface IApi {
+  auth: AuthApi;
 }
 
 export type Digit = number | null;

@@ -39,7 +39,6 @@ export const useOtp = () => {
     { target, inputType, data }: InputEvent,
     index: number
   ) => {
-    console.log("before");
     // @ts-ignore
     event.preventDefault();
 
@@ -83,8 +82,6 @@ export const useOtp = () => {
         digitsList.value[index] = null;
       }
     }
-
-    console.log(digitsList.value);
   };
 
   const keyDownHandler = ({ code, target }: KeyboardEvent, index: number) => {
@@ -116,7 +113,7 @@ export const useOtp = () => {
 
   const startSmsWaiting = () => {
     if (abortSmsWaitingController.value) {
-      abortSmsWaitingController.value.abort("Так захотелось");
+      abortSmsWaitingController.value.abort("error");
     }
 
     abortSmsWaitingController.value = new AbortController();
@@ -139,27 +136,6 @@ export const useOtp = () => {
       });
   };
 
-  const submitForm = () => {
-    console.log("запрос на подтверждение кода");
-  };
-
-  watch(
-    digitsList,
-    () => {
-      const data = digitsList.value.join("");
-      isError.value = false;
-
-      if (data.length !== codeLength) return;
-
-      if (checkCodeValidity(data)) {
-        submitForm();
-      } else {
-        isError.value = true;
-      }
-    },
-    { deep: true }
-  );
-
   onMounted(() => {
     startSmsWaiting();
   });
@@ -170,5 +146,6 @@ export const useOtp = () => {
     pastHandler,
     beforeInputHandler,
     keyDownHandler,
+    checkCodeValidity,
   };
 };

@@ -6,9 +6,11 @@
       value: Digit;
       tabindex?: number;
       autofocus?: boolean;
+      required?: boolean;
     }>(),
     {
       autofocus: false,
+      required: false,
     }
   );
 
@@ -16,7 +18,7 @@
     autocomplete: "one-time-code",
     type: "text",
     placeholder: "-",
-    pattern: /^\d$/gi,
+    pattern: "^\\d$",
     inputmode: "numeric",
   });
 </script>
@@ -28,6 +30,7 @@
     :setup="setup"
     :tabindex="tabindex"
     :autofocus="autofocus"
+    :required="required"
   />
 </template>
 

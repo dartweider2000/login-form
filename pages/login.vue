@@ -1,10 +1,50 @@
 <script setup lang="ts">
   import loginImage from "~/assets/img/login-image.svg";
+  import type { ILoginRequestBody } from "~/type/UI";
   definePageMeta({
     layout: false,
   });
 
-  const { email, password } = storeToRefs(useFormStore());
+  const { username: usernameValue, password: passwordValue } = storeToRefs(
+    useFormStore()
+  );
+  const { auth } = useApiStore();
+
+  const isDisabledButton = computed(
+    () => !(usernameValue.value && passwordValue.value)
+  );
+
+  const formName = ref<string>("login");
+  const formError = ref<string>("");
+  const isRequesting = ref<boolean>(false);
+
+  watch([usernameValue, passwordValue], () => {
+    formError.value = "";
+  });
+
+  const formSubmitHandler = async () => {
+    const elements = document.forms.namedItem(formName.value)?.elements;
+
+    // @ts-ignore
+    const { username, password }: { [key: string]: HTMLInputElement } =
+      elements;
+
+    if ((username.checkValidity(), password.checkValidity())) {
+      const body: ILoginRequestBody = {
+        password: password.value,
+        username: usernameValue.value,
+      };
+
+      try {
+        isRequesting.value = true;
+        await auth.login(body);
+      } catch (err) {
+        formError.value = "Такого пользователя нет";
+      } finally {
+        isRequesting.value = false;
+      }
+    }
+  };
 </script>
 
 <template>
@@ -17,7 +57,7 @@
       Everything you need is an internet connection.
     </template>
     <template #form>
-      <TemplateForm>
+      <TemplateForm :name="formName" :error="formError">
         <template #header>
           <div class="form-header">
             <FormTitle class="form-header__title"
@@ -29,11 +69,25 @@
           </div>
         </template>
         <template #body>
-          <UIEmailInput v-model="email" :tabindex="1" :autofocus="true" />
-          <UIPasswordInput v-model="password" :tabindex="2" />
+          <UIUsernameInput
+            v-model="usernameValue"
+            :tabindex="1"
+            :autofocus="true"
+            :required="true"
+          />
+          <UIPasswordInput
+            v-model="passwordValue"
+            :tabindex="2"
+            :required="true"
+          />
         </template>
         <template #button>
-          <UIActionButton tabindex="3">Log in</UIActionButton>
+          <UIActionButton
+            tabindex="3"
+            :disabled="isDisabledButton || isRequesting"
+            @action="formSubmitHandler"
+            >Log in</UIActionButton
+          >
         </template>
         <template #caption>
           <TemplateFormCaption

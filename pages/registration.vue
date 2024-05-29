@@ -5,9 +5,68 @@
     layout: false,
   });
 
-  const { username, email, password, newPassword, accept } = storeToRefs(
-    useFormStore()
+  const store = useFormStore();
+  const {
+    username: usernameValue,
+    email: emailValue,
+    password: passwordValue,
+    newPassword: newPasswordValue,
+    accept: acceptValue,
+  } = storeToRefs(store);
+  const { clearAll } = store;
+
+  const isDisabledButton = computed(
+    () =>
+      !(
+        usernameValue.value &&
+        passwordValue.value &&
+        emailValue.value &&
+        acceptValue.value &&
+        passwordValue.value === newPasswordValue.value
+      )
   );
+
+  const formName = ref<string>("registration");
+  const formError = ref<string>("");
+
+  onBeforeRouteLeave((to, from) => {
+    if (
+      (!usernameValue.value &&
+        !passwordValue.value &&
+        !emailValue.value &&
+        !acceptValue.value &&
+        !newPasswordValue.value) ||
+      to.path !== "/login"
+    )
+      return true;
+
+    const answer = confirm("Все данные будут потеряны");
+
+    if (answer) {
+      clearAll();
+    }
+    return answer;
+  });
+
+  const formSubmitHandler = async () => {
+    const elements = document.forms.namedItem(formName.value)?.elements;
+    // @ts-ignore
+    const {
+      email,
+      username,
+      password,
+      newPassword,
+    }: { [key: string]: HTMLInputElement } = elements;
+
+    if (
+      email.checkValidity() &&
+      username.checkValidity() &&
+      password.checkValidity() &&
+      newPassword.checkValidity()
+    ) {
+      await navigateTo("/otp");
+    }
+  };
 </script>
 
 <template>
@@ -22,7 +81,7 @@
       Just go through the boring process of creating an account.
     </template>
     <template #form>
-      <TemplateForm>
+      <TemplateForm :name="formName" :error="formError">
         <template #header>
           <div class="form-header">
             <FormTitle class="form-header__title"
@@ -32,17 +91,27 @@
           </div>
         </template>
         <template #body>
-          <UIUsernameInput v-model="username" :autofocus="true" :tabindex="1" />
-          <UIEmailInput v-model="email" :tabindex="2" />
-          <UIPasswordInput v-model="password" :tabindex="3" />
+          <UIUsernameInput
+            v-model="usernameValue"
+            :autofocus="true"
+            :tabindex="1"
+            :required="true"
+          />
+          <UIEmailInput v-model="emailValue" :tabindex="2" :required="true" />
           <UIPasswordInput
-            v-model="newPassword"
+            v-model="passwordValue"
+            :tabindex="3"
+            :required="true"
+          />
+          <UIPasswordInput
+            v-model="newPasswordValue"
             :is-new-password="true"
             :tabindex="4"
+            :required="true"
           />
           <div class="form-accept">
             <UICheckbox
-              v-model="accept"
+              v-model="acceptValue"
               class="form-accept__checkbox"
               :tabindex="5"
             />
@@ -55,7 +124,12 @@
           </div>
         </template>
         <template #button>
-          <UIActionButton tabindex="7">Sign In</UIActionButton>
+          <UIActionButton
+            tabindex="7"
+            :disabled="isDisabledButton"
+            @action="formSubmitHandler"
+            >Sign up</UIActionButton
+          >
         </template>
         <template #caption>
           <TemplateFormCaption

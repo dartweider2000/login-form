@@ -7,9 +7,11 @@
     defineProps<{
       tabindex?: number;
       autofocus?: boolean;
+      required?: boolean;
     }>(),
     {
       autofocus: false,
+      required: false,
     }
   );
 
@@ -17,7 +19,8 @@
     autocomplete: "email",
     type: "email",
     placeholder: "Email",
-    pattern: /^[\w\.]@[\w\.]\.[\w\.]+$/gi,
+    pattern: "^[\\w\\.]+@[\\w\\.]+\\.[\\w\\.]+$",
+    name: "email",
   });
 </script>
 
@@ -27,6 +30,7 @@
     :setup="setup"
     :tabindex="tabindex"
     :autofocus="autofocus"
+    :required="required"
   >
     <template #prefixIcon>
       <SvgEmail />

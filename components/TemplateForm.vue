@@ -2,6 +2,8 @@
   withDefaults(
     defineProps<{
       isWide?: boolean;
+      error: string;
+      name: string;
     }>(),
     {
       isWide: false,
@@ -18,9 +20,10 @@
 
 <template>
   <form
-    action=""
+    action="#"
     class="form"
     :class="{ 'form_is-wide': isWide }"
+    :name="name"
     @submit.prevent
   >
     <div class="form__header">
@@ -29,6 +32,7 @@
     <div class="form__wrapper">
       <div class="form__body">
         <slot name="body" />
+        <div v-if="error" class="form__error">{{ error }}</div>
       </div>
       <div class="form__actions">
         <div class="form__button">
@@ -59,6 +63,10 @@
     // .form__body
     &__body {
       @apply grid gap-[10px];
+    }
+    // .form__error
+    &__error {
+      @apply text-red-400 text-[18px];
     }
     // .form__actions
     &__actions {

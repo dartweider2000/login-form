@@ -8,10 +8,12 @@
       isNewPassword?: boolean;
       tabindex?: number;
       autofocus?: boolean;
+      required?: boolean;
     }>(),
     {
       isNewPassword: false,
       autofocus: false,
+      required: false,
     }
   );
 
@@ -19,9 +21,10 @@
 
   const setup = ref<IInputSetup>({
     autocomplete: isNewPassword.value ? "new-password" : "current-password",
-    pattern: /^[\w\-]+$/gi,
+    pattern: "^[\\w\\-]+$",
     type: "password",
     placeholder: isNewPassword.value ? "Confirm Password" : "Password",
+    name: isNewPassword.value ? "newPassword" : "password",
   });
 
   const isOpenPassword = ref<boolean>(false);
@@ -38,6 +41,7 @@
     :setup="setup"
     :tabindex="tabindex"
     :autofocus="autofocus"
+    :required="required"
   >
     <template #prefixIcon>
       <SvgShield />

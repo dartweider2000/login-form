@@ -17,7 +17,8 @@
     autocomplete: "nickname",
     type: "text",
     placeholder: "Username",
-    pattern: /^[\w\.\-]$/gi,
+    pattern: "^[\\w\\.\\-]+$",
+    name: "username",
   });
 </script>
 
