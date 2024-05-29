@@ -36,7 +36,7 @@
         !emailValue.value &&
         !acceptValue.value &&
         !newPasswordValue.value) ||
-      to.path !== "/login"
+      to.path !== "/"
     )
       return true;
 
@@ -117,7 +117,7 @@
             />
             <p class="form-accept__description">
               Accept
-              <NuxtLink class="form-accept__link" to="/login" tabindex="6"
+              <NuxtLink class="form-accept__link" to="/" tabindex="6"
                 >terms and conditions
               </NuxtLink>
             </p>
@@ -135,7 +135,7 @@
           <TemplateFormCaption
             description="You have account?"
             linkText="Login now"
-            linkUrl="/login"
+            linkUrl="/"
             :tabindex="8"
           />
         </template>

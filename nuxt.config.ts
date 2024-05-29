@@ -15,6 +15,10 @@ export default defineNuxtConfig({
       Inter: [700],
     },
   },
+  app: {
+    baseURL: "/login-form/",
+    buildAssetsDir: "assets",
+  },
   pinia: {
     storesDirs: ["./stores/**"],
   },
