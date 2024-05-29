@@ -2,17 +2,29 @@
   import type { IInputSetup } from "~/type/UI";
 
   const value = defineModel<string>();
-  const props = defineProps<{ setup: IInputSetup }>();
-  const { setup } = toRefs(props);
+  const props = defineProps<{
+    setup: IInputSetup;
+    tabindex?: number;
+    autofocus?: boolean;
+  }>();
+  const { setup, autofocus } = toRefs(props);
 
   defineSlots<{
     prefixIcon: () => any;
     postfixIcon: () => any;
   }>();
+
+  const isFocus = ref<boolean>(false);
+  if (autofocus.value) isFocus.value = true;
 </script>
 
 <template>
-  <div class="input">
+  <div
+    class="input"
+    :class="{ 'input_is-focus': isFocus }"
+    @focusin="isFocus = true"
+    @focusout="isFocus = false"
+  >
     <div v-if="$slots.prefixIcon" class="input__prefix-icon">
       <slot name="prefixIcon" />
     </div>
@@ -22,6 +34,8 @@
       :type="setup.type || 'text'"
       :placeholder="setup.placeholder"
       :autocomplete="setup.autocomplete"
+      :tabindex="tabindex"
+      :autofocus="autofocus"
     />
     <div v-if="$slots.postfixIcon" class="input__postfix-icon">
       <slot name="postfixIcon" />
@@ -31,7 +45,12 @@
 
 <style scoped lang="scss">
   .input {
-    @apply pl-[10px] pr-[20px] py-[17px] flex border-[1px] border-[--call-to-action-50] bg-[--call-to-action-10] rounded-[10px] gap-[10px] min-w-0;
+    @apply pl-[10px] pr-[20px] py-[17px] flex border-[1px] border-[--call-to-action-50] bg-[--call-to-action-10] 
+      rounded-[10px] gap-[10px] min-w-0 outline-none;
+
+    &_is-focus {
+      @apply border-[--purple-dark];
+    }
 
     & .input__prefix-icon,
     .input__postfix-icon {
@@ -44,7 +63,7 @@
     }
     // .input__el
     &__el {
-      @apply flex-1 basis-auto bg-inherit outline-none text-[18px] leading-[30px] text-[--input-inner-color] min-w-0;
+      @apply flex-1 basis-auto bg-inherit outline-none text-[18px] leading-[30px] text-[--input-inner-color] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap;
 
       &::placeholder {
         @apply text-[--input-inner-color];

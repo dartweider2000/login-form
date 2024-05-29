@@ -3,13 +3,16 @@
     description: string;
     linkUrl: string;
     linkText: string;
+    tabindex?: number;
   }>();
 </script>
 
 <template>
   <div class="caption">
     <p class="caption__description">{{ description }}</p>
-    <NuxtLink class="caption__link" :to="linkUrl">{{ linkText }}</NuxtLink>
+    <NuxtLink class="caption__link" :to="linkUrl" :tabindex="tabindex">{{
+      linkText
+    }}</NuxtLink>
   </div>
 </template>
 
@@ -23,7 +26,18 @@
     }
     // .caption__link
     &__link {
-      @apply text-[--call-to-action] font-bold;
+      @apply text-[--call-to-action] font-bold outline-none;
+      transition: var(--trans-03);
+
+      &:focus {
+        @apply text-[--purple-dark];
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          @apply text-[--purple-dark];
+        }
+      }
     }
   }
 </style>

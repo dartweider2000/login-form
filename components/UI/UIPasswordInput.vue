@@ -6,9 +6,12 @@
   const props = withDefaults(
     defineProps<{
       isNewPassword?: boolean;
+      tabindex?: number;
+      autofocus?: boolean;
     }>(),
     {
       isNewPassword: false,
+      autofocus: false,
     }
   );
 
@@ -18,7 +21,7 @@
     autocomplete: isNewPassword.value ? "new-password" : "current-password",
     pattern: /^[\w\-]+$/gi,
     type: "password",
-    placeholder: "Password",
+    placeholder: isNewPassword.value ? "Confirm Password" : "Password",
   });
 
   const isOpenPassword = ref<boolean>(false);
@@ -30,7 +33,12 @@
 </script>
 
 <template>
-  <UIBaseInput v-model="value" :setup="setup">
+  <UIBaseInput
+    v-model="value"
+    :setup="setup"
+    :tabindex="tabindex"
+    :autofocus="autofocus"
+  >
     <template #prefixIcon>
       <SvgShield />
     </template>

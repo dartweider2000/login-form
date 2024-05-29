@@ -14,10 +14,10 @@
   );
 
   const setup = ref<IInputSetup>({
-    autocomplete: "email",
-    type: "email",
-    placeholder: "Email",
-    pattern: /^[\w\.]@[\w\.]\.[\w\.]+$/gi,
+    autocomplete: "nickname",
+    type: "text",
+    placeholder: "Username",
+    pattern: /^[\w\.\-]$/gi,
   });
 </script>
 
@@ -29,7 +29,7 @@
     :autofocus="autofocus"
   >
     <template #prefixIcon>
-      <SvgEmail />
+      <SvgPerson />
     </template>
   </UIBaseInput>
 </template>

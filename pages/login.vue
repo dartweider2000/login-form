@@ -4,8 +4,7 @@
     layout: false,
   });
 
-  const val = ref("");
-  const pass = ref("");
+  const { email, password } = storeToRefs(useFormStore());
 </script>
 
 <template>
@@ -30,17 +29,18 @@
           </div>
         </template>
         <template #body>
-          <UIEmailInput v-model="val" />
-          <UIPasswordInput v-model="pass" />
+          <UIEmailInput v-model="email" :tabindex="1" :autofocus="true" />
+          <UIPasswordInput v-model="password" :tabindex="2" />
         </template>
         <template #button>
-          <UIActionButton>Log in</UIActionButton>
+          <UIActionButton tabindex="3">Log in</UIActionButton>
         </template>
         <template #caption>
           <TemplateFormCaption
             description="Don’t have account?"
             linkText="Create an account"
             linkUrl="/registration"
+            :tabindex="4"
           />
         </template>
       </TemplateForm>
