@@ -102,10 +102,12 @@
             v-model="passwordValue"
             :tabindex="3"
             :required="true"
+            :is-new-password="true"
           />
           <UIPasswordInput
             v-model="newPasswordValue"
             :is-new-password="true"
+            :confirm="true"
             :tabindex="4"
             :required="true"
           />

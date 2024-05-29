@@ -9,22 +9,24 @@
       tabindex?: number;
       autofocus?: boolean;
       required?: boolean;
+      confirm?: boolean;
     }>(),
     {
       isNewPassword: false,
       autofocus: false,
       required: false,
+      confirm: false,
     }
   );
 
-  const { isNewPassword } = toRefs(props);
+  const { isNewPassword, confirm } = toRefs(props);
 
   const setup = ref<IInputSetup>({
     autocomplete: isNewPassword.value ? "new-password" : "current-password",
     pattern: "^[\\w\\-]+$",
     type: "password",
-    placeholder: isNewPassword.value ? "Confirm Password" : "Password",
-    name: isNewPassword.value ? "newPassword" : "password",
+    placeholder: confirm.value ? "Confirm Password" : "Password",
+    name: confirm.value ? "newPassword" : "password",
   });
 
   const isOpenPassword = ref<boolean>(false);
