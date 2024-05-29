@@ -1,14 +1,28 @@
 <script setup lang="ts">
+  withDefaults(
+    defineProps<{
+      isWide?: boolean;
+    }>(),
+    {
+      isWide: false,
+    }
+  );
+
   defineSlots<{
     header: () => any;
     body: () => any;
     button: () => any;
-    caption: () => any;
+    caption?: () => any;
   }>();
 </script>
 
 <template>
-  <form action="" class="form" @submit.prevent>
+  <form
+    action=""
+    class="form"
+    :class="{ 'form_is-wide': isWide }"
+    @submit.prevent
+  >
     <div class="form__header">
       <slot name="header" />
     </div>
@@ -20,7 +34,7 @@
         <div class="form__button">
           <slot name="button" />
         </div>
-        <div class="form__caption">
+        <div v-if="$slots.caption" class="form__caption">
           <slot name="caption" />
         </div>
       </div>
@@ -31,6 +45,10 @@
 <style scoped lang="scss">
   .form {
     @apply max-w-[477px] w-full m-auto grid gap-[25px] min-w-0;
+
+    &_is-wide {
+      @apply max-w-none w-auto m-0;
+    }
     // .form__header
     &__header {
     }

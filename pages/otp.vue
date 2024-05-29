@@ -15,7 +15,38 @@
     <template #captionDescription>
       You are one step away from recovering your password.
     </template>
+    <template #form>
+      <TemplateForm :is-wide="true">
+        <template #header>
+          <div class="form-header">
+            <FormTitle class="form-header__title">Enter OTP</FormTitle>
+            <p class="form-header__main-section">
+              Sent OTP on
+              <a href="mailto:johndoe@gmail.com" class="form-header__link"
+                >johndoe@gmail.com</a
+              >
+            </p>
+            <NuxtLink class="form-header__link" to="/registration"
+              >Change email</NuxtLink
+            >
+          </div>
+        </template>
+      </TemplateForm>
+    </template>
   </NuxtLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .form-header {
+    @apply grid gap-[5px];
+    // .form-header__title
+    &__title {
+    }
+    // .form-header__main-section
+    &__main-section {
+    }
+    // .form-header__link
+    &__link {
+    }
+  }
+</style>

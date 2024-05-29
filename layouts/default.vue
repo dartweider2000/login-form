@@ -50,7 +50,7 @@
     }
     // .app__left-content
     &__left-content {
-      @apply basis-[100%] p-[16px];
+      @apply basis-[100%] p-[16px] flex justify-center items-center;
     }
     // .app__right
     &__right {
