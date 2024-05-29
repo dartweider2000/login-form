@@ -11,6 +11,8 @@
   const { clearPasswords } = store;
   const { auth } = useApiStore();
 
+  if (!email.value) await navigateTo("/");
+
   const {
     beforeInputHandler,
     keyDownHandler,
