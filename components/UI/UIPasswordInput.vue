@@ -42,6 +42,7 @@
     :tabindex="tabindex"
     :autofocus="autofocus"
     :required="required"
+    @keydown.enter.stop.prevent="showClosePasswordHandler()"
   >
     <template #prefixIcon>
       <SvgShield />

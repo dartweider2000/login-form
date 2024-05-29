@@ -20,6 +20,7 @@
       class="checkbox__el"
       type="checkbox"
       :tabindex="tabindex"
+      @keydown.enter.stop.prevent="value = !value"
     />
   </button>
 </template>
