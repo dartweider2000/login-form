@@ -52,6 +52,7 @@
       :pattern="setup.pattern"
       :required="required"
       :name="setup.name"
+      :inputmode="setup.inputmode"
     />
     <div v-if="$slots.postfixIcon" class="input__postfix-icon">
       <slot name="postfixIcon" />

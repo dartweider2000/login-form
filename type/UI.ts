@@ -8,7 +8,7 @@ export interface IInputSetup {
   type?: string;
   pattern?: string;
   formatter?: FormatterFunction;
-  inputmode?: string;
+  inputmode?: "numeric";
   name?: string;
 }
 
