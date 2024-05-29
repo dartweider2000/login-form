@@ -45,8 +45,8 @@
 
 <style scoped lang="scss">
   .input {
-    @apply pl-[10px] pr-[20px] py-[17px] flex border-[1px] border-[--call-to-action-50] bg-[--call-to-action-10] 
-      rounded-[10px] gap-[10px] min-w-0 outline-none;
+    @apply pl-[10px] pr-[20px] flex border-[1px] border-[--call-to-action-50] bg-[--call-to-action-10] 
+      rounded-[10px] gap-[10px] min-w-0 outline-none items-center;
 
     &_is-focus {
       @apply border-[--purple-dark];
@@ -63,7 +63,8 @@
     }
     // .input__el
     &__el {
-      @apply flex-1 basis-auto bg-inherit outline-none text-[18px] leading-[30px] text-[--input-inner-color] min-w-0 overflow-hidden text-ellipsis whitespace-nowrap;
+      @apply flex-1 basis-auto bg-inherit outline-none text-[18px] leading-[30px] text-[--input-inner-color]
+       min-w-0 overflow-hidden text-ellipsis whitespace-nowrap py-[17px];
 
       &::placeholder {
         @apply text-[--input-inner-color];
