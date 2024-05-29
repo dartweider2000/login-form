@@ -5,7 +5,7 @@
     layout: false,
   });
 
-  const { username, email, password, newPassword } = storeToRefs(
+  const { username, email, password, newPassword, accept } = storeToRefs(
     useFormStore()
   );
 </script>
@@ -40,16 +40,29 @@
             :is-new-password="true"
             :tabindex="4"
           />
+          <div class="form-accept">
+            <UICheckbox
+              v-model="accept"
+              class="form-accept__checkbox"
+              :tabindex="5"
+            />
+            <p class="form-accept__description">
+              Accept
+              <NuxtLink class="form-accept__link" to="/login" tabindex="6"
+                >terms and conditions
+              </NuxtLink>
+            </p>
+          </div>
         </template>
         <template #button>
-          <UIActionButton tabindex="5">Sign In</UIActionButton>
+          <UIActionButton tabindex="7">Sign In</UIActionButton>
         </template>
         <template #caption>
           <TemplateFormCaption
             description="You have account?"
             linkText="Login now"
             linkUrl="/login"
-            :tabindex="6"
+            :tabindex="8"
           />
         </template>
       </TemplateForm>
@@ -74,6 +87,32 @@
     // .form-header__sub-title
     &__sub-title {
       @apply text-[20px] leading-[24px] text-[--input-inner-color];
+    }
+  }
+
+  .form-accept {
+    @apply flex gap-[10px];
+    // .form-accept__checkbox
+    &__checkbox {
+    }
+    // .form-accept__description
+    &__description {
+      @apply text-[16px] leading-[24px] text-[--input-inner-color];
+    }
+    // .form-accept__link
+    &__link {
+      @apply text-[--call-to-action] outline-none;
+      transition: var(--trans-03);
+
+      &:focus {
+        @apply text-[--purple-dark];
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          @apply text-[--purple-dark];
+        }
+      }
     }
   }
 </style>

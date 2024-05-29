@@ -3,6 +3,7 @@ export const useFormStore = defineStore("formStore", () => {
   const username = ref<string>("");
   const password = ref<string>("");
   const newPassword = ref<string>("");
+  const accept = ref<boolean>(false);
 
   const clearPasswords = () => {
     password.value = "";
@@ -12,6 +13,7 @@ export const useFormStore = defineStore("formStore", () => {
   const clearAll = () => {
     email.value = "";
     username.value = "";
+    accept.value = false;
 
     clearPasswords();
   };
@@ -21,6 +23,7 @@ export const useFormStore = defineStore("formStore", () => {
     username,
     password,
     newPassword,
+    accept,
     clearAll,
     clearPasswords,
   };
