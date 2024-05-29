@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { IInputSetup } from "~/type/UI";
 
-  const value = defineModel<string>();
+  const value = defineModel<string | null | number>();
   const props = defineProps<{
     setup: IInputSetup;
     tabindex?: number;

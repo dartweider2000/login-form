@@ -6,4 +6,7 @@ export interface IInputSetup {
   type?: string;
   pattern?: RegExp;
   formatter?: FormatterFunction;
+  inputmode?: string;
 }
+
+export type Digit = number | null;

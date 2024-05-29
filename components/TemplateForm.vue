@@ -66,6 +66,7 @@
     }
     // .form__button
     &__button {
+      @apply flex justify-center items-center;
     }
     // .form__caption
     &__caption {
